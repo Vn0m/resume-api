@@ -4,7 +4,7 @@ const router = express.Router();
 var experiences = [];
 
 router.use('/', (req, res, next) => {
-    console.log("This is a middleware within /api");
+    console.log("Api request received");
     // pass req and res 
     next();
 })
