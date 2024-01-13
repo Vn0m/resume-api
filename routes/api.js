@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Experiences = require("../database/experience");
 
 var experiences = [];
 
@@ -15,11 +16,13 @@ router.get('/intro', (req,res) => {
         univeristy: "Universidad del Azuay",
         major: "Computer Science",
     })
-})
-
-router.get('/experience', (req, res) => {
-    res.status(200).json(experiences);
 });
+
+router.get('experiences', async(req,res) => {
+  await Experiences.find({})
+  .then((experiences) => res.status(200).json({message: experiences, ok: true}))
+  .catch((err) => res.status(500).json({ message: err, ok: false}));
+})
 
 router.put("/:id", (req, res) => {
     const expIndex = parseInt(req.params.id);

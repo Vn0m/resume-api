@@ -2,17 +2,13 @@ const express = require('express');
 const app = express();
 //library to unionize the path between different OS
 const path = require('path');
+const connectDB = require("./database");
 const apiRouter = require('./routes/api');
-const mongoose = require('mongoose');
 
 require("dotenv").config();
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error("MongoDB Connection Error:", err));
-
+// call on server.js for enviroment variable
+connectDB.call(this);
 
 app.use(express.urlencoded({extended: true}));
 // allow server to read json data from the request body from the client 
